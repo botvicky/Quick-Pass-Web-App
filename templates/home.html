@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Welcome to QuickPass</h1>
+    <p>QuickPass is your secure gateway to effortless authentication and user management.
+        QuickPass is your key to effortless and secure authentication. Designed with simplicity and safety in mind,
+        it streamlines user access, allowing you to log in without the hassle of traditional methods.
+        <b>----QuickPass by Mahuni!</b>
+     </p>
+    
+    {% if current_user.is_authenticated %}
+        <div class="user-welcome">
+            <h2>Hello, {{ current_user.username }}!</h2>
+            <p>We're glad to see you back. What would you like to do today?</p>
+            <div class="action-buttons">
+                <a href="{{ url_for('profile') }}" class="button">View Profile</a>
+                {% if current_user.role == 'admin' %}
+                    <a href="{{ url_for('admin') }}" class="button">Admin Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="cta-buttons">
+            <a href="{{ url_for('login') }}" class="button">Log In</a>
+            <a href="{{ url_for('register') }}" class="button">Sign Up</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
